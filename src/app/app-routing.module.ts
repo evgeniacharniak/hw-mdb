@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MDB_DASHBOARD_PATH } from './features/mdb-dashboard';
-import { MOVIE_DETAILS_PATH } from './features/movie-details';
 
 const routes: Routes = [
   {
@@ -10,7 +9,7 @@ const routes: Routes = [
   },
 
   {
-    path: MDB_DASHBOARD_PATH + MOVIE_DETAILS_PATH,
+    path: MDB_DASHBOARD_PATH + '/:id',
     loadChildren: (()=>import('./features/movie-details/movie-details.module').then(m=>m.MovieDetailsModule))
   }
 ];

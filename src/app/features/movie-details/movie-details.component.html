@@ -1,4 +1,13 @@
-<h3 routerLink="" >{{movieDetails.name}}</h3>
-<p>{{movieDetails.year}}</p>
-<p>{{movieDetails.details}}</p>
-<p>{{movieDetails.rating}}</p>
+<ng-template [ngIf]="movieDetails">
+    <h3 routerLink>{{movieDetails.name}}</h3>
+    <p>{{movieDetails.year}}</p>
+    <p>{{movieDetails.description}}</p>
+    <p>{{movieDetails.rating}}</p>
+
+    <mf-watch-list
+        [watchList]="watchList"
+        [movieId]="movieDetails.id"
+    ></mf-watch-list>
+</ng-template>
+
+<a [routerLink]="getMdbDashboardLink()"><= back to movies list</a>

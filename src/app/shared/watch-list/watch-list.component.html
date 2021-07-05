@@ -1,0 +1,9 @@
+<button
+    *ngIf="watchList; else removeFromList"
+    (click)="removeFromWatchListHandler()"
+>
+    -
+</button>
+<ng-template #removeFromList>
+    <button (click)="addToWatchListHandler()">+</button>
+</ng-template>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import Movie from 'src/app/shared/models';
-import { MDB_DASHBOARD_PATH } from '../mdb-dashboard';
+import { MDB_DASHBOARD_PATH } from '..';
 
 @Component({
   selector: 'mf-movie-card',

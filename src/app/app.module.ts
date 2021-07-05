@@ -7,7 +7,7 @@ import { MdbDataService } from './shared/services/mdb-data.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

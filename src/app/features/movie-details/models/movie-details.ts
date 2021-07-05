@@ -1,6 +1,12 @@
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
 export class MovieDetails {
-  public get details(): string {
-    return this._details;
+  public get genre(): string {
+    return this._genre;
+  }
+  public get description(): string {
+    return this._description;
   }
   public get year(): number {
     return this._year;
@@ -15,8 +21,13 @@ export class MovieDetails {
     return this._id;
   }
 
-  public constructor (private _id: number,
+  public constructor(private _id: number,
     private _name: string, private _year: number,
-    private _details: string, private _rating: number) {
+    private _description: string, private _rating: number,
+    private _genre: string) {
+  }
+
+  public static parse(movieDetails: Observable<MovieDetails>): Observable<MovieDetails> {
+    return movieDetails.pipe(map(m => new MovieDetails(m.id, m.name, m.year, m.description, m.rating, m.genre)));
   }
 }
