@@ -7,7 +7,7 @@ import {
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
-import { IMovieDetailsView, MovieDetails } from '../models/movie-details';
+import { IMovieDetailsView } from '../models/movie-details-view';
 
 @Injectable()
 export class MovieDetailsResolver implements Resolve<IMovieDetailsView> {

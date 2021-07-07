@@ -7,6 +7,7 @@ import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrderPipe } from './order-pipe/order.pipe';
 import { FilterPipe } from './filter-pipe/filter.pipe';
+import { MdbDashboardResolver } from './mdb-dashboard-resolver/mdb-dashboard.resolver';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FilterPipe } from './filter-pipe/filter.pipe';
     SharedModule
   ],
   providers: [
+    MdbDashboardResolver
   ],
 })
 export class MdbDashboardModule { }

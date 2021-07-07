@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import Movie from 'src/app/shared/models';
+import { IMovieView } from 'src/app/shared/models/movie-view';
 import { MDB_DASHBOARD_PATH } from '..';
 
 @Component({
@@ -11,11 +12,11 @@ import { MDB_DASHBOARD_PATH } from '..';
 export class MovieCardComponent {
 
   @Input()
-  public movie!: Movie;
+  public movie!: IMovieView;
 
   constructor() { }
 
-  public getMovieDetailsLink(movie: Movie): string {
+  public getMovieDetailsLink(movie: IMovieView): string {
     return `/${MDB_DASHBOARD_PATH}/${movie.id}`;
   }
 

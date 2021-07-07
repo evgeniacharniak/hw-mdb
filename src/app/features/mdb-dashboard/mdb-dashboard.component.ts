@@ -6,6 +6,7 @@ import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
 import { orderDirection } from './models/order-direction';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWatchList } from 'src/app/shared/watch-list/models/watch-list';
+import { IMovieView } from 'src/app/shared/models/movie-view';
 
 @Component({
   selector: 'mf-mdb-dashboard',
@@ -15,19 +16,14 @@ import { IWatchList } from 'src/app/shared/watch-list/models/watch-list';
 })
 export class MdbDashboardComponent {
 
-  private _mdbList$: Observable<Array<Movie>> | null;
-  public get mdbList(): Observable<Array<Movie>> | null {
-    return this._mdbList$;
+  private _movieViews!: Array<IMovieView>;
+  public get movieViews(): Array<IMovieView> {
+    return this._movieViews;
   }
 
-  private _watchList!: Array<IWatchList> | null;
-  public get watchList(): Array<IWatchList> | null {
-    return this._watchList;
-  }
-
-  private _genreList$!: Observable<Array<string>> | null;
-  public get genreList(): Observable<Array<string>> | null {
-    return this._genreList$;
+  private _genreList!: Array<string>;
+  public get genreList(): Array<string> {
+    return this._genreList;
   }
 
   private _movieSortDirection: orderDirection;
@@ -43,12 +39,6 @@ export class MdbDashboardComponent {
     private changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _activatedRoute: ActivatedRoute) {
-    this._mdbList$ = this._mdbDataService.getMoviesList();
-    this._mdbDataService.getWatchList().pipe(take(1)).subscribe(value => {
-      this._watchList = value;
-      changeDetectorRef.markForCheck()
-    });
-    this._genreList$ = this._mdbList$.pipe(map(arr => arr.map(el => el.genre))).pipe(map(arr => [...new Set(arr)]));
     this._movieSortDirection = 'desc';
     this._movieFilter = 'none';
     this._activatedRoute.queryParams.pipe(take(1)).subscribe(params => {
@@ -57,8 +47,9 @@ export class MdbDashboardComponent {
     })
   }
 
-  public findWatchFlagById(movieId: number): boolean {
-    return !!this._watchList!.find(el => el.id == movieId);
+  ngOnInit(): void {
+    this._movieViews = this._activatedRoute.snapshot.data.movieViews;
+    this._genreList = [...new Set(this._movieViews.map(el => el.genre))];
   }
 
   public toggleSortHandler(): void {
