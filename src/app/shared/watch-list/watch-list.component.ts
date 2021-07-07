@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { MdbDataService } from '../services/mdb-data.service';
-import { WatchList } from './models/watch-list';
 
 @Component({
   selector: 'mf-watch-list',
@@ -12,7 +11,7 @@ import { WatchList } from './models/watch-list';
 export class WatchListComponent implements OnInit {
 
   @Input()
-  public watchList!: WatchList | null;
+  public isInWhatchList!: boolean;
 
   @Input()
   public movieId!: number;
@@ -23,22 +22,14 @@ export class WatchListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   public addToWatchListHandler(): void {
-    this._mdbDataService.
-      addToWatchList(this.movieId).
-      pipe(take(1)).subscribe(el => { this.watchList = el; this._changeDetectorRef.markForCheck() });
+    this._mdbDataService.addToWatchListByMovieId(this.movieId).pipe(take(1)).subscribe();
+      this.isInWhatchList = true;
   }
 
   public removeFromWatchListHandler(): void {
-    this._mdbDataService.removeFromWatchList(this.watchList!.id).
-      pipe(take(1)).subscribe({
-        next: data => {
-          this.watchList = null;
-          this._changeDetectorRef.markForCheck();
-        }
-      }
-      );
+    this._mdbDataService.removeFromWatchListByMovieId(this.movieId).pipe(take(1)).subscribe();
+    this.isInWhatchList = false;
   }
 
 }

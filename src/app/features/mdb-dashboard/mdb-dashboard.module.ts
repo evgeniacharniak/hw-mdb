@@ -22,7 +22,6 @@ import { FilterPipe } from './filter-pipe/filter.pipe';
     SharedModule
   ],
   providers: [
-    MdbDataService,
   ],
 })
 export class MdbDashboardModule { }

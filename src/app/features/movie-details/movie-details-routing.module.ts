@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MovieDetailsResolver } from './movie-details-resolver/movie-details.resolver';
 import { MovieDetailsComponent } from './movie-details.component';
 
 const routes: Routes = [
-  { path: '', component: MovieDetailsComponent }
+  { path: '', component: MovieDetailsComponent,
+  resolve: { movieDetails: MovieDetailsResolver }, }
 ];
 
 @NgModule({

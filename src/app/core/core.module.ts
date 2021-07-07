@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreRoutingModule } from './core-routing.module';
 import { RouterModule } from '@angular/router';
-import { MdbDataService } from '../shared/services/mdb-data.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UrlInterceptor } from './url-interceptor/url.interceptor';
-
+import { AuthService } from './auth-service/auth.service';
+import { AuthGuard } from './auth-guard/auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
+    LogoutComponent
   ],
   imports: [
     CommonModule,
@@ -17,12 +19,16 @@ import { UrlInterceptor } from './url-interceptor/url.interceptor';
     HttpClientModule
   ],
   providers: [
-    MdbDataService,
+    AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UrlInterceptor,
       multi: true
     },
   ],
+  exports: [
+    LogoutComponent
+  ]
 })
 export class CoreModule { }

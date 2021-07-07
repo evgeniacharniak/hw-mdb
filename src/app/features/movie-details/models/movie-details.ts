@@ -31,3 +31,13 @@ export class MovieDetails {
     return movieDetails.pipe(map(m => new MovieDetails(m.id, m.name, m.year, m.description, m.rating, m.genre)));
   }
 }
+
+export interface IMovieDetailsView {
+  id: number,
+  name: string,
+  year: number,
+  description: string,
+  rating: number,
+  genre: string
+  isInWatchList: boolean
+}

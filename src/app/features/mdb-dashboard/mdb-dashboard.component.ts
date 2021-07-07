@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import Movie from 'src/app/shared/models';
-import { WatchList } from 'src/app/shared/watch-list/models/watch-list';
 import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
 import { orderDirection } from './models/order-direction';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IWatchList } from 'src/app/shared/watch-list/models/watch-list';
 
 @Component({
   selector: 'mf-mdb-dashboard',
@@ -19,8 +20,8 @@ export class MdbDashboardComponent {
     return this._mdbList$;
   }
 
-  private _watchList!: Array<WatchList> | null;
-  public get watchList(): Array<WatchList> | null {
+  private _watchList!: Array<IWatchList> | null;
+  public get watchList(): Array<IWatchList> | null {
     return this._watchList;
   }
 
@@ -38,42 +39,48 @@ export class MdbDashboardComponent {
   public get movieFilter(): string {
     return this._movieFilter;
   }
-
-  // public constructor(private _mdbDataService: MdbDataService) {
-  //   this._mdbList = this._mdbDataService.getMoviesList();
-  //   this._watchList = this._mdbDataService.getWatchList();
-  // }
-
-  // public findWatchFlagById(movieId: number): Observable<WatchList | null> {
-  //   let watchList: WatchList | null;
-  //   return this._watchList!.pipe(map(arr => arr.find(el => el.movieId == movieId) ?? null ));
-  // }
-
-
-  public constructor(private _mdbDataService: MdbDataService, private changeDetectorRef: ChangeDetectorRef) {
+  public constructor(private _mdbDataService: MdbDataService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute) {
     this._mdbList$ = this._mdbDataService.getMoviesList();
     this._mdbDataService.getWatchList().pipe(take(1)).subscribe(value => {
       this._watchList = value;
       changeDetectorRef.markForCheck()
     });
     this._genreList$ = this._mdbList$.pipe(map(arr => arr.map(el => el.genre))).pipe(map(arr => [...new Set(arr)]));
-    this._movieSortDirection = 'DESC';
+    this._movieSortDirection = 'desc';
     this._movieFilter = 'none';
+    this._activatedRoute.queryParams.pipe(take(1)).subscribe(params => {
+      this._movieSortDirection = params['orderDirection'];
+      this._movieFilter = params['filterGenre'] ? params['filterGenre'] : 'none';
+    })
   }
 
-  public findWatchFlagById(movieId: number): WatchList | null {
-    let watchList: WatchList | null;
-    // this._watchList!.pipe(map(arr => arr.find(el => el.movieId == movieId) ?? null ));
-    watchList = this._watchList!.find(el => el.movieId == movieId) ?? null;
-    return watchList;
+  public findWatchFlagById(movieId: number): boolean {
+    return !!this._watchList!.find(el => el.id == movieId);
   }
 
   public toggleSortHandler(): void {
-    this._movieSortDirection = this._movieSortDirection == 'DESC' ? 'ASC' : 'DESC';
+    this._movieSortDirection = this._movieSortDirection == 'desc' ? 'asc' : 'desc';
+    this._router.navigate(['/movies'], {
+      queryParams: {
+        filterGenre: this._movieFilter,
+        orderDirection: this._movieSortDirection
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   public toggleFilterHandler(value: string): void {
     this._movieFilter = value;
+    this._router.navigate(['/movies'], {
+      queryParams: {
+        filterGenre: this._movieFilter,
+        orderDirection: this._movieSortDirection
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
 }

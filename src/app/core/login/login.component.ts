@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MDB_DASHBOARD_PATH } from 'src/app/features/mdb-dashboard';
+import { AuthService } from '../auth-service/auth.service';
 
 @Component({
   selector: 'mf-login',
@@ -8,12 +10,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class LoginComponent {
 
-  public login(): void {
+  public constructor(private _authService: AuthService) {  }
 
+  public logInHandler(): void {
+    this._authService.logInToggle();
   }
 
-  public logout(): void {
-
+  public getMdbDashboardLink(): string {
+    return `../${MDB_DASHBOARD_PATH}`;
   }
-
 }

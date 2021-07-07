@@ -1,15 +1,17 @@
 <h1>Movies</h1>
 <div *ngIf="mdbList && watchList && genreList">
+
     <button (click)="toggleSortHandler()">Sort by Rating</button>
     <label for="cars">Choose filter:</label>
     <select #filter (change)="toggleFilterHandler(filter.value)">
         <option value="none">-</option>
         <option *ngFor="let genre of genreList | async" value="{{genre}}">{{genre}}</option>
     </select>
-    <div *ngFor="let movie of (mdbList | async) | orderBy: 'rating' : movieSortDirection | filterBy: 'genre' : movieFilter">
+
+    <div *ngFor="let movie of (mdbList | async) | filterBy: 'genre' : movieFilter | orderBy: 'rating' : movieSortDirection">
         <mf-movie-card [movie]="movie"></mf-movie-card>
         <mf-watch-list
-            [watchList]="findWatchFlagById(movie.id)"
+            [isInWhatchList]="findWatchFlagById(movie.id)"
             [movieId]="movie.id"
         ></mf-watch-list>
     </div>

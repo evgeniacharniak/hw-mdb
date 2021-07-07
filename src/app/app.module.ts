@@ -15,7 +15,7 @@ import { MdbDataService } from './shared/services/mdb-data.service';
     CoreModule
   ],
   providers: [
-    MdbDataService,
+    MdbDataService
   ],
   bootstrap: [AppComponent]
 })

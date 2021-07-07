@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { MovieDetails } from 'src/app/features/movie-details/models/movie-details';
 import Movie from '../models';
 import { HttpClient } from '@angular/common/http';
-import { WatchList } from '../watch-list/models/watch-list';
+import { IWatchList } from '../watch-list/models/watch-list';
 
 @Injectable()
 export class MdbDataService {
@@ -19,23 +19,20 @@ export class MdbDataService {
     return MovieDetails.parse(this._httpClient.get<MovieDetails>('movies/' + movieId));
   }
 
-  public getWatchList(): Observable<Array<WatchList>> {
-    return WatchList.parseList(this._httpClient.get<Array<WatchList>>('watchList'));
+  public getWatchList(): Observable<Array<IWatchList>> {
+    return this._httpClient.get<Array<IWatchList>>('watchList');
   }
 
-  public getWatchListByMovieId(movieId: number): Observable<WatchList | null> {
-    return WatchList.parse(this._httpClient.
-      get<Array<WatchList | null>>('watchList').
-      pipe(map(arr => { return arr.find(el => el?.movieId == movieId) ?? null; })));
+  public getWatchListByMovieId(movieId: number): Observable<IWatchList | null> {
+    return this._httpClient.get<Array<IWatchList | null>>('watchList').
+      pipe(map(arr => { return arr.find(el => el?.id == movieId) ?? null; }));
   }
 
-  public addToWatchList(movieId: number): Observable<WatchList | null> {
-    return WatchList.parse(
-      this._httpClient.post<WatchList>('watchList',
-        { "movieId": movieId }));
+  public addToWatchListByMovieId(movieId: number): Observable<IWatchList | null> {
+    return this._httpClient.post<IWatchList>('watchList', {id: movieId});
   }
 
-  public removeFromWatchList(movieId: number): Observable<unknown> {
+  public removeFromWatchListByMovieId(movieId: number): Observable<unknown> {
     return this._httpClient.delete(`watchList/${movieId}`);
   }
 }
