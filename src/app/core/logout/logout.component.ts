@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UPDATE_PASSWORD_PATH } from 'src/app/features/update-password';
 import { AuthService } from '../auth-service/auth.service';
 import { LOGIN_PATH } from '../login';
 
@@ -17,6 +18,10 @@ export class LogoutComponent {
 
   public getLoginLink(): string {
     return `../${LOGIN_PATH}`;
+  }
+
+  public getUpdatePasswordLink(): string {
+    return `../${UPDATE_PASSWORD_PATH}`;
   }
 
   public isLogIn(): boolean {

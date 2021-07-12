@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LoginRoutingModule, LOGIN_COMPONENTS } from './login-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -10,7 +10,8 @@ import { LoginRoutingModule, LOGIN_COMPONENTS } from './login-routing.module';
   ],
   imports: [
     CommonModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    SharedModule
   ]
 })
 export class LoginModule { }

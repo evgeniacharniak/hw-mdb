@@ -10,6 +10,22 @@
         [movieId]="movieDetailsView.id"
     ></mf-watch-list>
 
+    <form
+    [formGroup]="form"
+>
+<label>Name:</label>
+    <input [formControl]="nameControl">
+    <label>Year:</label>
+    <input [formControl]="yearControl">
+    <label>Description:</label>
+    <input [formControl]="descriptionControl">
+    <label>Rating:</label>
+    <input [formControl]="ratingControl">
+    <label>Genre:</label>
+    <input [formControl]="genreControl">
+    <button (click)="updateMovieHandler()">Update Movie</button>
+</form>
+
 </ng-template>
 
 <a [routerLink]="getMdbDashboardLink()"><= back to movies list</a>

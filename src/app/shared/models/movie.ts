@@ -2,7 +2,6 @@ import { Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 
 export class Movie {
-
   public get rating(): number {
     return this._rating;
   }

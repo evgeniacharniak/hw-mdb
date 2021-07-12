@@ -35,4 +35,8 @@ export class MdbDataService {
   public removeFromWatchListByMovieId(movieId: number): Observable<unknown> {
     return this._httpClient.delete(`watchList/${movieId}`);
   }
+
+  public updateMovie(movieDetails: MovieDetails): Observable<MovieDetails> {
+    return this._httpClient.post<MovieDetails>('movies', movieDetails);
+  }
 }

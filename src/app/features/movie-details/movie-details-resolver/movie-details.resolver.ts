@@ -18,13 +18,13 @@ export class MovieDetailsResolver implements Resolve<IMovieDetailsView> {
     return combineLatest([this._mdbDataService.getMovieDetails(route.params.id), this._mdbDataService.getWatchListByMovieId(route.params.id)])
       .pipe(map(([movie, isWatch]) => {
         return {
-          "id": movie.id,
-          "name": movie.name,
-          "year": movie.year,
-          "description": movie.description,
-          "rating": movie.rating,
-          "genre": movie.genre,
-          "isInWatchList": isWatch ? true : false
+          id: movie.id,
+          name: movie.name,
+          year: movie.year,
+          description: movie.description,
+          rating: movie.rating,
+          genre: movie.genre,
+          isInWatchList: isWatch ? true : false
         };
       }
       ));

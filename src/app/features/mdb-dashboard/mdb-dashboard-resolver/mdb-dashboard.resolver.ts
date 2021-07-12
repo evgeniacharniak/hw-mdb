@@ -19,11 +19,11 @@ export class MdbDashboardResolver implements Resolve<Array<IMovieView>> {
       .pipe(map(([movies, watchList]) => {
         return movies.map(movie => {
           return {
-            "id": movie.id,
-            "name": movie.name,
-            "rating": movie.rating,
-            "genre": movie.genre,
-            "isInWatchList": !!watchList.find(rec => rec.id == movie.id)
+            id: movie.id,
+            name: movie.name,
+            rating: movie.rating,
+            genre: movie.genre,
+            isInWatchList: !!watchList.find(rec => rec.id == movie.id)
           }
         });
       }));

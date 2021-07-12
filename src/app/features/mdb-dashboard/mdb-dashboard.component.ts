@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import Movie from 'src/app/shared/models';
 import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
-import { orderDirection } from './models/order-direction';
+import { OrderDirection } from './models/order-direction';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWatchList } from 'src/app/shared/watch-list/models/watch-list';
 import { IMovieView } from 'src/app/shared/models/movie-view';
@@ -26,8 +26,8 @@ export class MdbDashboardComponent {
     return this._genreList;
   }
 
-  private _movieSortDirection: orderDirection;
-  public get movieSortDirection(): orderDirection {
+  private _movieSortDirection: OrderDirection;
+  public get movieSortDirection(): OrderDirection {
     return this._movieSortDirection;
   }
 

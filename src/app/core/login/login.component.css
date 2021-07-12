@@ -1,7 +1,14 @@
 /* :host { */
-  /* display: block; */
+  .login__form {
+    margin: 50px 50px;
+    display: block;
 
-  a {
-    margin: 100px 20px;
+
   }
+   /* display: block; */
+
+
+  /* a {
+    margin: 100px 20px;
+  } */
 /* } */

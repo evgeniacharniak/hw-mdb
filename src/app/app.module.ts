@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MdbDataService } from './shared/services/mdb-data.service';
+import { UpdatePasswordComponent } from './features/update-password/update-password.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -15,7 +15,6 @@ import { MdbDataService } from './shared/services/mdb-data.service';
     CoreModule
   ],
   providers: [
-    MdbDataService
   ],
   bootstrap: [AppComponent]
 })
