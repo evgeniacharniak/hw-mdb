@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MdbDashboardRoutingModule, MDB_DASHBOARDS_COMPONENTS } from './mdb-dashboard-routing.module';
-import { MovieCardComponent } from './movie-card/movie-card.component';
-import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { OrderPipe } from './order-pipe/order.pipe';
-import { FilterPipe } from './filter-pipe/filter.pipe';
-import { MdbDashboardResolver } from './mdb-dashboard-resolver/mdb-dashboard.resolver';
+import { MovieCardComponent } from '@mf-app/features/mdb-dashboard/movie-card/movie-card.component';
+
+import { OrderPipe } from '@mf-app/features/mdb-dashboard/order-pipe/order.pipe';
+import { FilterPipe } from '@mf-app/features/mdb-dashboard/filter-pipe/filter.pipe';
+
+import { MdbDashboardRoutingModule, MDB_DASHBOARDS_COMPONENTS } from '@mf-app/features/mdb-dashboard/mdb-dashboard-routing.module';
+import { SharedModule } from '@mf-app/shared/shared.module';
+
+import { MdbDashboardResolver } from '@mf-app/features/mdb-dashboard/mdb-dashboard-resolver/mdb-dashboard.resolver';
 
 
 @NgModule({
@@ -15,15 +17,15 @@ import { MdbDashboardResolver } from './mdb-dashboard-resolver/mdb-dashboard.res
     MDB_DASHBOARDS_COMPONENTS,
     MovieCardComponent,
     OrderPipe,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     CommonModule,
     MdbDashboardRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
-    MdbDashboardResolver
+    MdbDashboardResolver,
   ],
 })
 export class MdbDashboardModule { }

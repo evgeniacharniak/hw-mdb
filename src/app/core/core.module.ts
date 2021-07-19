@@ -1,22 +1,30 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoreRoutingModule } from './core-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UrlInterceptor } from './url-interceptor/url.interceptor';
-import { AuthService } from './auth-service/auth.service';
-import { AuthGuard } from './auth-guard/auth.guard';
-import { LogoutComponent } from './logout/logout.component';
+
+import { LogoutComponent } from '@mf-app/core/logout/logout.component';
+
+import { AuthService } from '@mf-app/core/auth-service/auth.service';
+
+import { CoreRoutingModule } from '@mf-app/core/core-routing.module';
+import { SharedModule } from '@mf-app/shared/shared.module';
+
+import { AuthGuard } from '@mf-app/core/auth-guard/auth.guard';
+import { UrlInterceptor } from '@mf-app/core/url-interceptor/url.interceptor';
+import { ExcetionHandler } from '@mf-app/core/exception-handler/exception.handler';
+
 
 @NgModule({
   declarations: [
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [
     CommonModule,
     CoreRoutingModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
   ],
   providers: [
     AuthService,
@@ -24,11 +32,15 @@ import { LogoutComponent } from './logout/logout.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UrlInterceptor,
-      multi: true
+      multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ExcetionHandler,
     },
   ],
   exports: [
-    LogoutComponent
-  ]
+    LogoutComponent,
+  ],
 })
 export class CoreModule { }

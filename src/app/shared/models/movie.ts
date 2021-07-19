@@ -1,16 +1,19 @@
-import { Observable, of } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class Movie {
   public get rating(): number {
     return this._rating;
   }
+
   public get name(): string {
     return this._name;
   }
+
   public get genre(): string {
     return this._genre;
   }
+
   public get id(): number {
     return this._id;
   }

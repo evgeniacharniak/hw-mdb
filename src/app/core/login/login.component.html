@@ -1,16 +1,20 @@
 <form
-    class="login__form"
-    [formGroup]="form"
+  class="login--form"
+  [formGroup]="form"
 >
-    <label>Login:</label>
-    <input [formControl]="loginControl">
-    <label>Password:</label>
-    <input [formControl]="passwordControl">
-    <a
-        [routerLink]=""
-        (click)="logInHandler()"
-    >
-        LogIn
-    </a>
-    <p *ngIf="loginError">{{loginError}}</p>
+  <label>Login:</label>
+  <input [formControl]="loginControl">
+  <label>Password:</label>
+  <input [formControl]="passwordControl">
+  <a
+    [routerLink]
+    (click)="logInHandler()"
+  >
+    LogIn
+  </a>
+  <div *ngIf="!form.valid && form.touched">
+    <small *ngIf="isLoginRequiredError">Please enter login</small>
+    <small *ngIf="isPasswordRequiredError">Please enter password</small>
+    <small *ngIf="isLoginFailedError">Login or password is incorrect</small>
+  </div>
 </form>

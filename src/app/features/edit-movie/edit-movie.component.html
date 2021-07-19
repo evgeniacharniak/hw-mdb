@@ -1,0 +1,35 @@
+<ng-template [ngIf]="movieDetails">
+
+  <form [formGroup]="form">
+    <p>{{form.valid}}</p>
+    <label>Name:</label>
+    <input [formControl]="nameControl">
+    <label>Year:</label>
+    <input [formControl]="yearControl">
+    <label>Description:</label>
+    <input [formControl]="descriptionControl">
+    <label>Rating:</label>
+    <input [formControl]="ratingControl">
+    <label>Genre:</label>
+    <input [formControl]="genreControl">
+    <button (click)="updateMovieHandler()">Update Movie</button>
+    <div *ngIf="!form.valid">
+      <small *ngIf="isYearLessThenMinError">
+        Year should be more than {{this.yearControl.errors?.min?.min}}
+      </small>
+      <small *ngIf="isYearBiggerThenMaxError">
+        Year should be less than {{this.yearControl.errors?.max?.max}}
+      </small>
+      <small *ngIf="isRatingLessThenMinError">
+        Year should be more than {{this.yearControl.errors?.min?.min}}
+      </small>
+      <small *ngIf="isRatingMoreThenMaxError">
+        Year should be less than {{this.yearControl.errors?.max?.max}}
+      </small>
+      <small *ngIf="!(isYearLessThenMinError && isYearBiggerThenMaxError && isRatingLessThenMinError && isRatingMoreThenMaxError)">Please fill all the fields</small>
+    </div>
+  </form>
+
+</ng-template>
+
+<a [routerLink]="getMdbDashboardLink()"><= back to movies list</a>

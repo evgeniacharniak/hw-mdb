@@ -1,31 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/auth-guard/auth.guard';
-import { MDB_DASHBOARD_PATH } from './features/mdb-dashboard';
-import { MovieDetailsResolver } from './features/movie-details/movie-details-resolver/movie-details.resolver';
-import { UPDATE_PASSWORD_PATH } from './features/update-password';
+
+import { MdbDashboardModule } from '@mf-app/features/mdb-dashboard/mdb-dashboard.module';
+import { MovieDetailsModule } from '@mf-app/features/movie-details/movie-details.module';
+import { EditMovieModule } from '@mf-app/features/edit-movie/edit-movie.module';
+
+import { AuthGuard } from '@mf-app/core/auth-guard/auth.guard';
+import { MDB_DASHBOARD_PATH } from '@mf-app/features/mdb-dashboard';
+import { EDIT_MOVIE_PATH } from '@mf-app/features/edit-movie';
+
 
 const routes: Routes = [
   {
     path: MDB_DASHBOARD_PATH,
     canActivate: [AuthGuard],
-    loadChildren: (() => import('./features/mdb-dashboard/mdb-dashboard.module').then(m => m.MdbDashboardModule))
+    loadChildren: ((): Promise<typeof MdbDashboardModule> =>
+      import('./features/mdb-dashboard/mdb-dashboard.module').then(m => m.MdbDashboardModule)),
   },
   {
     path: `${MDB_DASHBOARD_PATH}/:id`,
     canActivate: [AuthGuard],
-    loadChildren: (() => import('./features/movie-details/movie-details.module').then(m => m.MovieDetailsModule))
+    loadChildren: ((): Promise<typeof MovieDetailsModule> =>
+      import('./features/movie-details/movie-details.module').then(m => m.MovieDetailsModule)),
   },
   {
-    path: UPDATE_PASSWORD_PATH,
+    path: `${EDIT_MOVIE_PATH}/:id`,
     canActivate: [AuthGuard],
-    loadChildren: (() => import('./features/update-password/update-password.module').then(m => m.UpdatePasswordModule))
-  }
+    loadChildren: ((): Promise<typeof EditMovieModule> =>
+      import('./features/edit-movie/edit-movie.module').then(m => m.EditMovieModule)),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
 

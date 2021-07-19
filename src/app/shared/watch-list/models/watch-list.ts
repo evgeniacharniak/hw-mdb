@@ -1,3 +1,3 @@
 export interface IWatchList {
-  id: number
+  id: number;
 }

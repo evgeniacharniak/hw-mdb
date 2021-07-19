@@ -1,31 +1,30 @@
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  Resolve,
 } from '@angular/router';
-import { combineLatest, Observable, of } from 'rxjs';
+
+
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IMovieView } from 'src/app/shared/models/movie-view';
-import { MdbDataService } from 'src/app/shared/services/mdb-data.service';
+
+import { MdbDataService } from '@mf-app/shared/mdb-data-service/mdb-data.service';
+
+import { IMovieView } from '@mf-app/shared/models/movie-view';
 
 @Injectable()
 export class MdbDashboardResolver implements Resolve<Array<IMovieView>> {
 
   public constructor(private _mdbDataService: MdbDataService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<IMovieView>> {
+  public resolve(): Observable<Array<IMovieView>> {
+    console.log('resolver');
     return combineLatest([this._mdbDataService.getMoviesList(), this._mdbDataService.getWatchList()])
-      .pipe(map(([movies, watchList]) => {
-        return movies.map(movie => {
-          return {
-            id: movie.id,
-            name: movie.name,
-            rating: movie.rating,
-            genre: movie.genre,
-            isInWatchList: !!watchList.find(rec => rec.id == movie.id)
-          }
-        });
-      }));
+      .pipe(map(([movies, watchList]) => movies.map(movie => ({
+        id: movie.id,
+        name: movie.name,
+        rating: movie.rating,
+        genre: movie.genre,
+        isInWatchList: Boolean(watchList.find(rec => rec.id === movie.id)),
+      }))));
   }
 }

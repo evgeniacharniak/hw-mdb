@@ -1,14 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 import { take } from 'rxjs/operators';
-import { MdbDataService } from '../services/mdb-data.service';
+
+import { MdbDataService } from '@mf-app/shared/mdb-data-service/mdb-data.service';
+
+import { ONE } from '@mf-app/shared/models/constants';
+
 
 @Component({
   selector: 'mf-watch-list',
   templateUrl: './watch-list.component.html',
   styleUrls: ['./watch-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WatchListComponent implements OnInit {
+export class WatchListComponent {
 
   @Input()
   public isInWhatchList!: boolean;
@@ -16,19 +21,17 @@ export class WatchListComponent implements OnInit {
   @Input()
   public movieId!: number;
 
-  constructor(private _mdbDataService: MdbDataService,
-    private _changeDetectorRef: ChangeDetectorRef) { }
-
-  ngOnInit(): void {
-  }
+  public constructor(private _mdbDataService: MdbDataService) { }
 
   public addToWatchListHandler(): void {
-    this._mdbDataService.addToWatchListByMovieId(this.movieId).pipe(take(1)).subscribe();
-      this.isInWhatchList = true;
+    this._mdbDataService.addToWatchListByMovieId(this.movieId).pipe(take(ONE))
+      .subscribe();
+    this.isInWhatchList = true;
   }
 
   public removeFromWatchListHandler(): void {
-    this._mdbDataService.removeFromWatchListByMovieId(this.movieId).pipe(take(1)).subscribe();
+    this._mdbDataService.removeFromWatchListByMovieId(this.movieId).pipe(take(ONE))
+      .subscribe();
     this.isInWhatchList = false;
   }
 

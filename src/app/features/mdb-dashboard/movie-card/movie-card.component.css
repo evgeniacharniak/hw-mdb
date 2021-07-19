@@ -1,4 +1,7 @@
-:host{
-  display: block;
-}
+:host {
+  display: inline-block;
 
+  /* .movie-card--edit-button {
+    margin: 0px 20px;
+  } */
+}

@@ -1,18 +1,29 @@
 <h1>Movies</h1>
 <div *ngIf="movieViews && genreList">
 
-    <button (click)="toggleSortHandler()">Sort by Rating</button>
-    <label for="cars">Choose filter:</label>
-    <select #filter (change)="toggleFilterHandler(filter.value)">
-        <option value="none">-</option>
-        <option *ngFor="let genre of genreList" value="{{genre}}">{{genre}}</option>
-    </select>
+  <button (click)="toggleSortHandler()">Sort by Rating</button>
+  <label for="cars">Choose filter:</label>
+  <select
+    #filter
+    (change)="toggleFilterHandler(filter.value)"
+  >
+    <option value="none">-</option>
+    <option
+      *ngFor="let genre of genreList"
+      value="{{genre}}"
+    >
+      {{genre}}
+    </option>
+  </select>
+  <hr>
 
-    <div *ngFor="let movie of movieViews | filterBy: 'genre' : movieFilter | orderBy: 'rating' : movieSortDirection">
-      <mf-movie-card [movie]="movie"></mf-movie-card>
-      <mf-watch-list
-          [isInWhatchList]="movie.isInWatchList"
-          [movieId]="movie.id"
-      ></mf-watch-list>
+  <div *ngFor="let movie of movieViews | filterBy: 'genre' : movieFilter | orderBy: 'rating' : movieSortDirection">
+    <mf-movie-card [movie]="movie"></mf-movie-card>
+    <mf-watch-list
+      [isInWhatchList]="movie.isInWatchList"
+      [movieId]="movie.id"
+    ></mf-watch-list>
   </div>
 </div>
+<hr>
+<button (click)="throwExceptionHandler()">Бросить исключение</button>

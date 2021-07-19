@@ -1,13 +1,9 @@
 <div *ngIf="isLogIn()">
-    <a
-        [routerLink]="getLoginLink()"
-        (click)="logOutHandler()"
-    >
-        LogOut
-    </a>
-    <a
-        [routerLink]="getUpdatePasswordLink()"
-    >
-        Update Password
-    </a>
+  <a
+    [routerLink]="getLoginLink()"
+    (click)="logOutHandler()"
+  >
+    LogOut
+  </a>
+  <a [routerLink]="getUpdatePasswordLink()">Update Password</a>
 </div>
