@@ -1,9 +1,9 @@
 <div *ngIf="isLogIn()">
-  <a
+  <a mat-button
     [routerLink]="getLoginLink()"
     (click)="logOutHandler()"
   >
-    LogOut
+    Log Out
   </a>
-  <a [routerLink]="getUpdatePasswordLink()">Update Password</a>
+  <a mat-button [routerLink]="getUpdatePasswordLink()">Update Password</a>
 </div>

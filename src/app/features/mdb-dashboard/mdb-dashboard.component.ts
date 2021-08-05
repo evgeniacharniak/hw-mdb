@@ -64,6 +64,7 @@ export class MdbDashboardComponent implements OnInit {
   }
 
   public toggleFilterHandler(value: string): void {
+    debugger;
     this._movieFilter = value;
     this._router.navigate(['/movies'], {
       queryParams: {

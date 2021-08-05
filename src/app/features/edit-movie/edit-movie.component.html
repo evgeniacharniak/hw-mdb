@@ -1,35 +1,69 @@
 <ng-template [ngIf]="movieDetails">
 
   <form [formGroup]="form">
-    <p>{{form.valid}}</p>
-    <label>Name:</label>
-    <input [formControl]="nameControl">
-    <label>Year:</label>
-    <input [formControl]="yearControl">
-    <label>Description:</label>
-    <input [formControl]="descriptionControl">
-    <label>Rating:</label>
-    <input [formControl]="ratingControl">
-    <label>Genre:</label>
-    <input [formControl]="genreControl">
-    <button (click)="updateMovieHandler()">Update Movie</button>
-    <div *ngIf="!form.valid">
-      <small *ngIf="isYearLessThenMinError">
+    <mat-form-field>
+      <mat-label>Name:</mat-label>
+      <input
+        matInput
+        [formControl]="nameControl"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Year:</mat-label>
+      <input
+        matInput
+        [formControl]="yearControl"
+      >
+      <mat-error *ngIf="isYearLessThenMinError">
         Year should be more than {{this.yearControl.errors?.min?.min}}
-      </small>
-      <small *ngIf="isYearBiggerThenMaxError">
+      </mat-error>
+      <mat-error *ngIf="isYearBiggerThenMaxError">
         Year should be less than {{this.yearControl.errors?.max?.max}}
-      </small>
-      <small *ngIf="isRatingLessThenMinError">
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description:</mat-label>
+      <textarea
+        matInput
+        [formControl]="descriptionControl"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rating:</mat-label>
+      <input
+        matInput
+        [formControl]="ratingControl"
+      >
+      <mat-error *ngIf="isRatingLessThenMinError">
         Year should be more than {{this.yearControl.errors?.min?.min}}
-      </small>
-      <small *ngIf="isRatingMoreThenMaxError">
+      </mat-error>
+      <mat-error *ngIf="isRatingMoreThenMaxError">
         Year should be less than {{this.yearControl.errors?.max?.max}}
-      </small>
-      <small *ngIf="!(isYearLessThenMinError && isYearBiggerThenMaxError && isRatingLessThenMinError && isRatingMoreThenMaxError)">Please fill all the fields</small>
-    </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Genre:</mat-label>
+      <input
+        matInput
+        [formControl]="genreControl"
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="updateMovieHandler()"
+    >
+      Update Movie
+    </button>
+    <mat-error *ngIf="!form.valid && form.touched && !(isYearLessThenMinError && isYearBiggerThenMaxError && isRatingLessThenMinError && isRatingMoreThenMaxError)">Please fill all the fields</mat-error>
   </form>
 
 </ng-template>
 
-<a [routerLink]="getMdbDashboardLink()"><= back to movies list</a>
+<a
+  mat-raised-button
+  color="accent"
+  [routerLink]="getMdbDashboardLink()"
+>
+  <= back to movies list
+</a>

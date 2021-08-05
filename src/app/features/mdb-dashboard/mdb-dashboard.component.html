@@ -1,20 +1,22 @@
 <h1>Movies</h1>
 <div *ngIf="movieViews && genreList">
 
-  <button (click)="toggleSortHandler()">Sort by Rating</button>
-  <label for="cars">Choose filter:</label>
-  <select
+  <button mat-raised-button color="primary" (click)="toggleSortHandler()">Sort by Rating</button>
+  <mat-form-field appearance="fill">
+  <mat-label for="cars">Choose filter:</mat-label>
+  <mat-select
     #filter
-    (change)="toggleFilterHandler(filter.value)"
+    (selectionChange)="toggleFilterHandler(filter.value)"
   >
-    <option value="none">-</option>
-    <option
+    <mat-option value="none">-</mat-option>
+    <mat-option
       *ngFor="let genre of genreList"
       value="{{genre}}"
     >
       {{genre}}
-    </option>
-  </select>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
   <hr>
 
   <div *ngFor="let movie of movieViews | filterBy: 'genre' : movieFilter | orderBy: 'rating' : movieSortDirection">
@@ -26,4 +28,4 @@
   </div>
 </div>
 <hr>
-<button (click)="throwExceptionHandler()">Бросить исключение</button>
+<button mat-raised-button color="warn" (click)="throwExceptionHandler()">Бросить исключение</button>

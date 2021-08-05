@@ -25,7 +25,7 @@ const MAX_RATING = 10;
 export class EditMovieComponent implements OnInit {
 
   private _movieDetails!: MovieDetails;
-  public get movieDetails(): IMovieEditView {
+  public get movieDetails(): MovieDetails {
     return this._movieDetails;
   }
 

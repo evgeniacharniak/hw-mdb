@@ -1,9 +1,16 @@
 <button
-    *ngIf="isInWhatchList; else addToWatchList"
-    (click)="removeFromWatchListHandler()"
+  mat-icon-button
+  *ngIf="isInWhatchList; else addToWatchList"
+  (click)="removeFromWatchListHandler()"
 >
-    -
+
+  <mat-icon>remove_circle_outline</mat-icon>
 </button>
 <ng-template #addToWatchList>
-    <button (click)="addToWatchListHandler()">+</button>
+  <button
+    mat-icon-button
+    (click)="addToWatchListHandler()"
+  >
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
 </ng-template>

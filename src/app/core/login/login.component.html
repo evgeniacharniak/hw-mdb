@@ -2,19 +2,33 @@
   class="login--form"
   [formGroup]="form"
 >
-  <label>Login:</label>
-  <input [formControl]="loginControl">
-  <label>Password:</label>
-  <input [formControl]="passwordControl">
-  <a
+  <mat-form-field>
+    <mat-label>Login:</mat-label>
+    <input
+      matInput
+      [formControl]="loginControl"
+    >
+    <mat-error *ngIf="!form.valid && form.touched && isLoginRequiredError">
+      Please enter login
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password:</mat-label>
+    <input
+      matInput
+      [formControl]="passwordControl"
+    >
+    <mat-error *ngIf="!form.valid && form.touched && isPasswordRequiredError">
+      Please enter password
+    </mat-error>
+  </mat-form-field>
+  <a mat-button
     [routerLink]
     (click)="logInHandler()"
   >
     LogIn
   </a>
-  <div *ngIf="!form.valid && form.touched">
-    <small *ngIf="isLoginRequiredError">Please enter login</small>
-    <small *ngIf="isPasswordRequiredError">Please enter password</small>
-    <small *ngIf="isLoginFailedError">Login or password is incorrect</small>
-  </div>
+  <mat-error *ngIf="!form.valid && form.touched && isLoginFailedError">
+    Login or password is incorrect
+  </mat-error>
 </form>
